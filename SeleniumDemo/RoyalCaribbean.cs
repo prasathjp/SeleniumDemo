@@ -42,6 +42,11 @@ namespace SeleniumDemo
             IWebElement btnSingin = priBtn.FindElement(By.CssSelector("button"));
             btnSingin.Click();
 
+            ISearchContext inputErr = signInForm.FindElement(By.CssSelector("input-error")).GetShadowRoot();
+            //Error Label
+            IWebElement pError = inputErr.FindElement(By.CssSelector("p"));
+
+            Console.WriteLine("Invalid Login Error Message : " + pError.Text);
         }
     }
 }
