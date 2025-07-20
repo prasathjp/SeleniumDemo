@@ -1,4 +1,5 @@
 ﻿using OpenQA.Selenium;
+using OpenQA.Selenium.BiDi.Script;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
@@ -18,10 +19,11 @@ namespace SeleniumDemo
             DefaultWait<IWebDriver> fluentWait = new DefaultWait<IWebDriver>(chromeDriver);
             fluentWait.Timeout = TimeSpan.FromSeconds(30);
             fluentWait.PollingInterval = TimeSpan.FromMilliseconds(500);
-            fluentWait.IgnoreExceptionTypes(typeof(NoSuchElementException), typeof(ElementClickInterceptedException), typeof(ElementNotInteractableException));
+            fluentWait.IgnoreExceptionTypes(typeof(ElementClickInterceptedException));
 
             //Accept Cookies Button
-            IWebElement btnAcceptCookies = fluentWait.Until(dom => chromeDriver.FindElement(By.XPath("//button//span[text()='Accept all cookies']")));
+            bool isAcceptCookiesDisp = fluentWait.Until(doc => chromeDriver.FindElement(By.XPath("//button//span[text()='Accept all cookies']")).Displayed == true);
+            IWebElement btnAcceptCookies = chromeDriver.FindElement(By.XPath("//button//span[text()='Accept all cookies']"));
             btnAcceptCookies.Click();
 
             //From Textbox
